@@ -1,0 +1,20 @@
+﻿@model List<Blog>//model tanımlaması liste şeklinde gelicek
+
+<div class="mainbar">
+	@foreach(var item in Model)
+    {
+        <div class="article">
+            <h2><span>@item.Name</span> </h2>
+            <div class="clr"></div>
+            <p><span class="date">@item.PublishDate</span> Posted by <a href="#">Owner</a> &nbsp;|&nbsp; Filed under <a href="#">@item.Tags</a>, <a href="#">internet</a></p>
+            <img src="@item.ImageUrl" width="625" height="205" alt="" />
+            <p>@item.Description</p>
+            <p class="spec"><a href="/Blogs/Details?id=@item.Id" class="rm">Read more &raquo;</a> <!--burda href blog detayları sayfasına yönlendirildi id si şu olan şeyi de yolluyoru<-->
+                <a href="#" class="com"><span>@item.CommentCount</span> Comments</a>
+                <a href="#" class="com"><span>@item.LikeCount</span> Like</a>
+                <a href="#" class="com"><span>@item.ViewCount</span> view</a>
+            </p>
+         </div>
+    }
+	
+</div>
