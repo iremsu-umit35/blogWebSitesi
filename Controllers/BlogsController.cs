@@ -1,4 +1,5 @@
 ﻿using blogWebSitesi.Context;
+using blogWebSitesi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blogWebSitesi.Controllers
@@ -25,7 +26,21 @@ namespace blogWebSitesi.Controllers
         public IActionResult Details(int id)
         {
             var blog = _context.Blogs.Where(x => x.Id==id).FirstOrDefault();//veri tabanına bağlandı blogs tablosuna gitti ve tabloda nerede olduğunu dedi ve buldu ve birincisi döndü
+            var comment = _context.Comments.Where(x => x.BlogId == id).ToList(); //yorumları dödürüyor gönderilen idye göre
+            ViewBag.Comments = comment.ToList();  //görüntü çantası oluşturdu 
             return View(blog);//ve verilerri viewe gönderdik
+        }
+
+
+        //veri tabanına veri göndermek istiyoruz post gönderme işelemi yapıcagız
+
+        [HttpPost]
+        public IActionResult CreateComment(Comment model)//gelen veriyi işliyoruz comment türünde model alıcaz
+        {
+            model.PublishDate = DateTime.Now;// şimdiki değeri al ve işlemi ata
+            _context.Comments.Add(model);//veri tabanındaki comments tablosuna ekle
+            _context.SaveChanges();//değişiklikleri kaydet
+            return RedirectToAction("Details" , new {id = model.BlogId});//yorumları yapanı detailse gönder ve göderilen mesajı anlık olarak gör
         }
     }
 }
