@@ -26,6 +26,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Blogs}/{action=Index}/{id?}");//ilk açýlan sayfa blogs yaptým
+    pattern: "{controller=Admin}/{action=Index}/{id?}");//ilk açýlan sayfa blogs yaptým 
+// ilk açýlan sayfaayý admin yaptýk
 
 app.Run();
